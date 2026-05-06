@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EPIC Compass — La Bàn Sự Nghiệp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Mulish:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:        #0D0D14;
+  --ink-soft:   #1C1C2E;
+  --gold:       #C8973F;
+  --gold-lt:    #E8C97A;
+  --gold-pale:  #F5EDD4;
+  --teal:       #1E7B7B;
+  --teal-lt:    #3AABAB;
+  --teal-pale:  #D4EEED;
+  --orange:     #C75A22;
+  --orange-lt:  #E8834A;
+  --orange-pale:#FDEEE5;
+  --amber:      #9B6B10;
+  --amber-pale: #FBF3E0;
+  --cream:      #FAFAF5;
+  --cream-mid:  #EFEFDF;
+  --text:       #252530;
+  --muted:      #72728A;
+  --white:      #FFFFFF;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+html{scroll-behavior:smooth;}
+
+body{
+  font-family:'Mulish',sans-serif;
+  background:var(--cream);
+  color:var(--text);
+  font-size:16px;
+  line-height:1.75;
+  overflow-x:hidden;
+}
+
+/* ─── UTILITIES ─── */
+.eyebrow{
+  font-size:10px;font-weight:800;
+  letter-spacing:4px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:18px;
+  display:block;
+}
+.serif{font-family:'Playfair Display',serif;}
+.body-p{
+  font-size:16px;color:var(--text);
+  line-height:1.9;margin-bottom:22px;
+  font-weight:300;
+}
+.body-p strong{font-weight:700;color:var(--ink);}
+
+/* ─── HERO ─── */
+.hero{
+  position:relative;min-height:100vh;
+  background:var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;overflow:hidden;
+  padding:100px 24px 80px;
+}
+.hero-glow{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 25%,rgba(200,151,63,0.18) 0%,transparent 65%),
+    radial-gradient(ellipse 50% 40% at 15% 70%,rgba(30,123,123,0.12) 0%,transparent 60%),
+    radial-gradient(ellipse 45% 35% at 85% 65%,rgba(199,90,34,0.10) 0%,transparent 55%);
+}
+
+/* animated compass rings */
+.rings{position:absolute;top:50%;left:50%;pointer-events:none;}
+.ring{
+  position:absolute;border-radius:50%;
+  border:1px solid rgba(200,151,63,0.07);
+  transform:translate(-50%,-50%);
+}
+.ring-1{width:750px;height:750px;animation:rot1 60s linear infinite;}
+.ring-2{width:540px;height:540px;animation:rot1 40s linear infinite reverse;}
+.ring-3{width:340px;height:340px;animation:rot1 25s linear infinite;}
+@keyframes rot1{to{transform:translate(-50%,-50%) rotate(360deg);}}
+
+.hero-content{position:relative;z-index:3;max-width:700px;}
+
+.hero-badge{
+  display:inline-block;
+  border:1px solid rgba(200,151,63,0.35);
+  padding:7px 20px;border-radius:100px;
+  font-size:10px;font-weight:800;letter-spacing:3px;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:36px;
+  opacity:0;animation:fadeUp .7s ease .1s forwards;
+}
+
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(52px,9vw,100px);
+  font-weight:900;line-height:1;
+  color:#fff;margin-bottom:12px;
+  opacity:0;animation:fadeUp .8s ease .25s forwards;
+}
+.hero-title .accent{color:var(--gold);font-style:italic;}
+
+.hero-sub{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(18px,3vw,26px);
+  font-style:italic;font-weight:400;
+  color:rgba(255,255,255,0.55);
+  margin-bottom:36px;letter-spacing:.02em;
+  opacity:0;animation:fadeUp .8s ease .4s forwards;
+}
+
+.hero-desc{
+  font-size:16px;font-weight:300;
+  color:rgba(255,255,255,0.55);
+  max-width:520px;margin:0 auto 48px;
+  line-height:1.85;
+  opacity:0;animation:fadeUp .8s ease .55s forwards;
+}
+
+.hero-scroll{
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  opacity:0;animation:fadeUp .8s ease .7s forwards;
+}
+.hero-scroll span{
+  font-size:9px;font-weight:800;letter-spacing:3px;
+  text-transform:uppercase;color:rgba(255,255,255,0.3);
+}
+.scroll-line{
+  width:1px;height:40px;
+  background:linear-gradient(to bottom,rgba(200,151,63,0.5),transparent);
+  animation:scrollPulse 2s ease infinite;
+}
+@keyframes scrollPulse{0%,100%{opacity:.4;transform:scaleY(1);}50%{opacity:1;transform:scaleY(1.15);}}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(24px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* ─── WRAPPER ─── */
+.wrap{max-width:860px;margin:0 auto;padding:0 28px;}
+
+/* ─── WHY SECTION — the centrepiece ─── */
+.why-section{
+  padding:100px 0;
+  background:var(--ink);
+  position:relative;overflow:hidden;
+}
+.why-section::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(200,151,63,0.10) 0%,transparent 70%);
+  pointer-events:none;
+}
+
+.why-inner{position:relative;z-index:2;}
+
+.why-header{text-align:center;margin-bottom:72px;}
+
+.why-header .eyebrow{color:var(--gold);}
+
+.why-headline{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(32px,5.5vw,58px);
+  font-weight:900;line-height:1.1;
+  color:#fff;margin-bottom:24px;
+}
+.why-headline em{font-style:italic;color:var(--gold);}
+
+.why-lead{
+  font-size:17px;font-weight:300;
+  color:rgba(255,255,255,0.55);
+  max-width:580px;margin:0 auto;
+  line-height:1.85;
+}
+
+/* pain points grid */
+.pain-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:2px;margin-bottom:64px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.06);
+}
+.pain-item{
+  padding:36px 32px;
+  background:rgba(13,13,20,0.7);
+  border-right:1px solid rgba(255,255,255,0.05);
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  transition:background .25s;
+}
+.pain-item:hover{background:rgba(200,151,63,0.05);}
+.pain-icon{font-size:28px;margin-bottom:14px;display:block;}
+.pain-title{
+  font-size:15px;font-weight:700;
+  color:#fff;margin-bottom:10px;
+}
+.pain-desc{
+  font-size:13.5px;font-weight:300;
+  color:rgba(255,255,255,0.5);
+  line-height:1.75;
+}
+
+/* answer block */
+.why-answer{
+  text-align:center;
+  border-top:1px solid rgba(200,151,63,0.15);
+  padding-top:64px;
+}
+.why-answer-big{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(22px,4vw,38px);
+  font-style:italic;font-weight:700;
+  color:#fff;max-width:660px;
+  margin:0 auto 28px;line-height:1.35;
+}
+.why-answer-big em{color:var(--gold);font-style:normal;}
+.why-answer-body{
+  font-size:16px;font-weight:300;
+  color:rgba(255,255,255,0.55);
+  max-width:580px;margin:0 auto 48px;
+  line-height:1.9;
+}
+
+/* compass mini-preview */
+.compass-strip{
+  display:flex;gap:12px;
+  justify-content:center;flex-wrap:wrap;
+}
+.c-pill{
+  padding:10px 22px;border-radius:100px;
+  font-size:12px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;
+  border:1px solid rgba(255,255,255,0.12);
+  color:rgba(255,255,255,0.7);
+  transition:all .2s;
+}
+.c-pill:hover{border-color:var(--gold);color:var(--gold);}
+
+/* ─── SECTION DIVIDER ─── */
+.divider{
+  height:1px;
+  background:linear-gradient(to right,transparent,var(--cream-mid),transparent);
+  margin:0;
+}
+
+/* ─── COMPASS SECTION ─── */
+.compasses{padding:100px 0;}
+
+.section-head{text-align:center;margin-bottom:72px;}
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(30px,5vw,50px);
+  font-weight:900;color:var(--ink);
+  line-height:1.15;margin-bottom:16px;
+}
+.section-title em{font-style:italic;color:var(--gold);}
+.section-sub{
+  font-size:15.5px;color:var(--muted);
+  max-width:520px;margin:0 auto;font-weight:300;
+}
+
+/* ─── COMPASS CARD ─── */
+.compass-card{
+  margin-bottom:64px;
+  border-radius:6px;overflow:hidden;
+  box-shadow:0 8px 40px rgba(0,0,0,0.07);
+}
+
+/* card header */
+.cc-head{
+  padding:48px 52px 40px;
+  position:relative;overflow:hidden;
+}
+.cc-head::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.06) 0%,transparent 60%);
+  pointer-events:none;
+}
+.cc-ilead .cc-head{background:var(--ink-soft);}
+.cc-dwork .cc-head{background:var(--teal);}
+.cc-dlink .cc-head{background:var(--orange);}
+.cc-daccount .cc-head{background:var(--amber);}
+
+.cc-num{
+  font-family:'Playfair Display',serif;
+  font-size:80px;font-weight:900;
+  line-height:1;color:rgba(255,255,255,0.06);
+  position:absolute;top:20px;right:36px;
+}
+.cc-compass-label{
+  font-size:9px;font-weight:800;
+  letter-spacing:4px;text-transform:uppercase;
+  color:rgba(255,255,255,0.45);
+  margin-bottom:10px;display:block;
+}
+.cc-name{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(36px,6vw,52px);
+  font-weight:900;color:#fff;
+  line-height:1;margin-bottom:8px;
+}
+.cc-vn{
+  font-size:13px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,0.45);
+  margin-bottom:20px;
+}
+.cc-question{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(18px,2.8vw,24px);
+  font-style:italic;font-weight:400;
+  color:rgba(255,255,255,0.85);
+  line-height:1.45;max-width:560px;
+  padding-top:16px;
+  border-top:1px solid rgba(255,255,255,0.12);
+}
+
+/* card body */
+.cc-body{
+  background:#fff;
+  padding:44px 52px 48px;
+}
+
+.cc-why{
+  background:var(--gold-pale);
+  border-left:3px solid var(--gold);
+  padding:24px 28px;
+  margin-bottom:36px;
+  border-radius:0 4px 4px 0;
+}
+.cc-dwork .cc-why{background:var(--teal-pale);border-left-color:var(--teal);}
+.cc-dlink .cc-why{background:var(--orange-pale);border-left-color:var(--orange);}
+.cc-daccount .cc-why{background:var(--amber-pale);border-left-color:var(--amber);}
+
+.cc-why-label{
+  font-size:9px;font-weight:800;
+  letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:10px;display:block;
+}
+.cc-dwork .cc-why-label{color:var(--teal);}
+.cc-dlink .cc-why-label{color:var(--orange);}
+.cc-daccount .cc-why-label{color:var(--amber);}
+
+.cc-why-text{
+  font-family:'Playfair Display',serif;
+  font-size:17px;font-style:italic;font-weight:400;
+  color:var(--ink);line-height:1.6;
+}
+
+/* tools grid */
+.cc-tools{margin-bottom:36px;}
+.cc-tools-label{
+  font-size:10px;font-weight:800;
+  letter-spacing:3px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:20px;display:block;
+}
+.tools-grid{
+  display:grid;gap:12px;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+}
+.tool-item{
+  padding:16px 20px;
+  border:1px solid var(--cream-mid);
+  border-radius:4px;
+  transition:border-color .2s,transform .2s;
+}
+.tool-item:hover{border-color:var(--gold);transform:translateY(-2px);}
+.cc-dwork .tool-item:hover{border-color:var(--teal);}
+.cc-dlink .tool-item:hover{border-color:var(--orange);}
+.cc-daccount .tool-item:hover{border-color:var(--amber);}
+
+.tool-name{
+  font-size:13px;font-weight:700;
+  color:var(--ink);margin-bottom:4px;
+}
+.tool-desc{
+  font-size:12px;font-weight:300;
+  color:var(--muted);line-height:1.6;
+}
+
+/* result block */
+.cc-result{
+  display:flex;align-items:flex-start;gap:16px;
+  background:var(--cream);
+  padding:20px 24px;border-radius:4px;
+}
+.cc-result-icon{
+  font-size:22px;flex-shrink:0;margin-top:2px;
+}
+.cc-result-text{
+  font-size:14px;font-weight:300;
+  color:var(--text);line-height:1.75;
+}
+.cc-result-text strong{font-weight:700;color:var(--ink);}
+
+/* ─── PULLQUOTE ─── */
+.pullquote{
+  padding:80px 0;
+  background:var(--ink);text-align:center;
+}
+.pq-text{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(24px,4vw,40px);
+  font-style:italic;font-weight:700;
+  color:#fff;max-width:700px;
+  margin:0 auto 24px;line-height:1.35;
+}
+.pq-text em{color:var(--gold);font-style:normal;}
+.pq-cite{
+  font-size:11px;font-weight:700;
+  letter-spacing:3px;text-transform:uppercase;
+  color:rgba(255,255,255,0.35);
+}
+
+/* ─── ECOSYSTEM ─── */
+.ecosystem{
+  padding:100px 0;
+  background:var(--cream-mid);
+}
+.eco-card{
+  background:#fff;border-radius:6px;
+  padding:52px;
+  box-shadow:0 4px 30px rgba(0,0,0,0.05);
+}
+.eco-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(22px,3.5vw,34px);
+  font-weight:900;color:var(--ink);
+  margin-bottom:12px;
+}
+.eco-sub{
+  font-size:14px;font-weight:300;
+  color:var(--muted);margin-bottom:48px;
+  max-width:500px;
+}
+.eco-flow{
+  display:grid;
+  grid-template-columns:1fr 36px 1fr 36px 1fr 36px 1fr;
+  align-items:center;gap:0;
+  margin-bottom:48px;
+}
+.eco-node{
+  background:var(--cream);
+  border-radius:4px;padding:20px 16px;
+  text-align:center;
+  border-top:3px solid var(--gold);
+  transition:transform .2s,box-shadow .2s;
+}
+.eco-node:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,0.08);}
+.eco-node.n2{border-top-color:var(--teal);}
+.eco-node.n3{border-top-color:var(--orange);}
+.eco-node.n4{border-top-color:var(--amber);}
+.eco-n-name{
+  font-family:'Playfair Display',serif;
+  font-size:20px;font-weight:900;
+  color:var(--ink);margin-bottom:4px;
+}
+.eco-n-sub{
+  font-size:10px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:10px;
+}
+.eco-n-q{
+  font-size:12px;font-weight:300;
+  color:var(--text);font-style:italic;
+  line-height:1.5;
+}
+.eco-arrow{
+  text-align:center;color:var(--gold);
+  font-size:18px;font-weight:300;
+}
+.eco-note{
+  font-size:14px;font-weight:300;
+  color:var(--muted);text-align:center;
+  font-style:italic;line-height:1.75;
+  max-width:600px;margin:0 auto;
+}
+
+/* ─── CLOSING ─── */
+.closing{
+  padding:100px 0 120px;
+  text-align:center;
+}
+.closing-headline{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(28px,5vw,50px);
+  font-weight:900;color:var(--ink);
+  line-height:1.2;max-width:700px;
+  margin:0 auto 28px;
+}
+.closing-headline em{font-style:italic;color:var(--gold);}
+.closing-body{
+  font-size:16px;font-weight:300;
+  color:var(--muted);max-width:560px;
+  margin:0 auto 52px;line-height:1.9;
+}
+.closing-stamp{
+  display:inline-flex;align-items:center;gap:14px;
+  border:1px solid var(--cream-mid);
+  padding:18px 36px;border-radius:4px;
+  background:#fff;
+}
+.stamp-name{
+  font-family:'Playfair Display',serif;
+  font-size:18px;font-weight:900;
+  color:var(--ink);letter-spacing:1px;
+}
+.stamp-sub{
+  font-size:9px;font-weight:700;
+  letter-spacing:3px;text-transform:uppercase;
+  color:var(--muted);margin-top:2px;
+}
+.stamp-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--gold);
+}
+
+/* ─── FOOTER ─── */
+footer{
+  background:var(--ink);
+  padding:36px 24px;text-align:center;
+}
+.footer-logo{
+  font-family:'Playfair Display',serif;
+  font-size:20px;font-weight:900;
+  letter-spacing:4px;color:var(--gold);
+  margin-bottom:6px;
+}
+.footer-sub{
+  font-size:9px;font-weight:700;
+  letter-spacing:3px;text-transform:uppercase;
+  color:rgba(255,255,255,0.25);
+}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:680px){
+  .cc-head{padding:36px 28px 32px;}
+  .cc-body{padding:32px 28px 36px;}
+  .tools-grid{grid-template-columns:1fr;}
+  .pain-grid{grid-template-columns:1fr;}
+  .eco-flow{
+    grid-template-columns:1fr;
+  }
+  .eco-arrow{transform:rotate(90deg);}
+  .eco-card{padding:32px 24px;}
+  .eco-flow{gap:8px;}
+  .cta-grid{grid-template-columns:1fr !important;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<header class="hero">
+  <div class="hero-glow"></div>
+  <div class="rings">
+    <div class="ring ring-1"></div>
+    <div class="ring ring-2"></div>
+    <div class="ring ring-3"></div>
+  </div>
+  <div class="hero-content">
+    <span class="hero-badge">IPA Group · EPIC Framework</span>
+    <h1 class="hero-title">EPIC<br><span class="accent">Compass</span></h1>
+    <p class="hero-sub">La Bàn Sự Nghiệp — 4 La Bàn Vận Hành Hằng Ngày</p>
+    <p class="hero-desc">Bốn la bàn giúp mỗi CBNV luôn biết mình đang ở đâu trên hành trình sự nghiệp — đang phát triển thế nào, đang tạo ra gì, được ai đồng hành, và giá trị của mình trong tổ chức là gì.</p>
+    <div class="hero-scroll">
+      <span>Khám phá</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════ WHY ══════════════════════ -->
+<section class="why-section">
+  <div class="wrap why-inner">
+
+    <div class="why-header">
+      <span class="eyebrow">Tại sao cần 4 La Bàn?</span>
+      <h2 class="why-headline">Bạn đang đi làm mỗi ngày —<br><em>nhưng bạn có biết mình đang đi đâu không?</em></h2>
+      <p class="why-lead">Đây không phải câu hỏi triết học. Đây là câu hỏi thực tế nhất mà bất kỳ người đi làm nào cũng nên tự hỏi. Và câu trả lời thường khiến chúng ta ngạc nhiên.</p>
+    </div>
+
+    <!-- Pain points -->
+    <div class="pain-grid">
+      <div class="pain-item">
+        <span class="pain-icon">😶</span>
+        <div class="pain-title">Làm việc chăm chỉ — nhưng không thấy mình lớn lên</div>
+        <div class="pain-desc">Bạn hoàn thành task hết ngày này sang ngày khác, nhưng sau 1-2 năm nhìn lại, không biết mình đã phát triển được gì thực sự. Không có gương để soi, không có thước để đo.</div>
+      </div>
+      <div class="pain-item">
+        <span class="pain-icon">🌫️</span>
+        <div class="pain-title">Không rõ giá trị của mình trong tổ chức là gì</div>
+        <div class="pain-desc">Lương được trả — nhưng bạn không thực sự hiểu tại sao là con số đó. Không biết mình cần làm gì để được ghi nhận. Không biết mình đang đứng ở đâu so với kỳ vọng.</div>
+      </div>
+      <div class="pain-item">
+        <span class="pain-icon">🏝️</span>
+        <div class="pain-title">Cảm thấy thiếu mạng lưới hỗ trợ đồng hành</div>
+        <div class="pain-desc">Bạn muốn phát triển, nhưng không biết hỏi ai. Gặp khó khăn, nhưng không có người thực sự đồng hành. Quản lý thì bận với kết quả kinh doanh, không có ai lo cho career của bạn.</div>
+      </div>
+      <div class="pain-item">
+        <span class="pain-icon">🔄</span>
+        <div class="pain-title">KPI tốt nhưng sự nghiệp không đi đến đâu</div>
+        <div class="pain-desc">Đạt số, nhận thưởng — nhưng 3 năm sau vẫn ở vị trí cũ. Không hiểu sự khác biệt giữa "làm tốt công việc" và "phát triển bản thân". Hai thứ đó không tự động đi cùng nhau.</div>
+      </div>
+    </div>
+
+    <!-- The answer -->
+    <div class="why-answer">
+      <h3 class="why-answer-big">
+        4 La Bàn EPIC ra đời để giải quyết<br>
+        chính xác <em>những điều đó.</em>
+      </h3>
+      <p class="why-answer-body">
+        Không phải thêm một bộ quy trình HR phức tạp. Không phải thêm báo cáo, forms, hay meetings. <strong style="color:#fff;">4 La Bàn là ngôn ngữ chung</strong> để mỗi CBNV và tổ chức cùng hiểu — bạn đang ở đâu, đang cần gì, và sự nghiệp của bạn đang đi về phía nào.
+      </p>
+      <p class="why-answer-body">
+        Khi có la bàn, bạn <strong style="color:#fff;">tự điều hướng được</strong> — không cần chờ ai nói cho bạn biết mình đang đứng ở đâu. Khi có 4 la bàn cùng lúc, bạn thấy được bức tranh đầy đủ nhất của hành trình sự nghiệp của chính mình.
+      </p>
+      <div class="compass-strip">
+        <span class="c-pill">iLEAD — Phát triển năng lực</span>
+        <span class="c-pill">dWORK — Công việc & kết quả</span>
+        <span class="c-pill">dLINK — Đồng hành</span>
+        <span class="c-pill">dAccount — Giá trị</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════ PULLQUOTE ══════════════════════ -->
+<div class="pullquote">
+  <div class="wrap">
+    <p class="pq-text">"Công việc không phải là điều tôi làm để tồn tại — mà là cách tôi chọn để <em>đóng góp</em>, để <em>trưởng thành</em>, và để trở thành <em>phiên bản tốt hơn</em> của chính mình."</p>
+    <span class="pq-cite">Tinh thần EPIC · IPA Group</span>
+  </div>
+</div>
+
+<!-- ══════════════════════ 4 COMPASSES ══════════════════════ -->
+<section class="compasses">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Bộ công cụ vận hành</span>
+      <h2 class="section-title">EPIC Compass —<br><em>La Bàn Sự Nghiệp của Bạn</em></h2>
+      <p class="section-sub">Bốn la bàn vận hành hằng ngày. Mỗi la bàn trả lời một câu hỏi cốt lõi. Cả bốn cùng nhau tạo nên sự rõ ràng mà mọi CBNV xứng đáng được có.</p>
+    </div>
+
+    <!-- ── LA BÀN 1: iLEAD ── -->
+    <div class="compass-card cc-ilead">
+      <div class="cc-head">
+        <div class="cc-num">01</div>
+        <span class="cc-compass-label">La Bàn 01 · La Bàn Phát Triển Năng Lực</span>
+        <h3 class="cc-name">iLEAD</h3>
+        <p class="cc-vn">Tôi đang trở thành ai?</p>
+        <p class="cc-question">"Tôi đang phát triển theo chiều nào — và ai đang đồng hành cùng tôi trong hành trình đó?"</p>
+      </div>
+      <div class="cc-body">
+        <div class="cc-why">
+          <span class="cc-why-label">Tại sao iLEAD quan trọng với bạn</span>
+          <p class="cc-why-text">Trong hầu hết các tổ chức, không ai thực sự lo cho sự phát triển dài hạn của bạn — quản lý lo KPI, HR lo tuân thủ. iLEAD thay đổi điều đó: đây là la bàn đảm bảo bạn luôn có người đồng hành đúng chiều, có lộ trình rõ ràng, và được nhìn nhận qua chiều sâu thực sự chứ không chỉ qua kết quả ngắn hạn.</p>
+        </div>
+
+        <span class="cc-tools-label">Công cụ & Cơ chế</span>
+        <div class="tools-grid cc-tools">
+
+          <div class="tool-item">
+            <div class="tool-name">SM — Servant Manager</div>
+            <div class="tool-desc">Người có nhiệm vụ chăm lo sự phát triển dài hạn của bạn — không đánh KPI, không quyết định lương một mình. SM đặt câu hỏi, lắng nghe, và đi cùng hành trình iLEAD của bạn.</div>
+          </div>
+
+          <div class="tool-item">
+            <div class="tool-name">Job Track — CT & FT</div>
+            <div class="tool-desc">Career Track (DC/PS/OE) xác định cách bạn tạo giá trị. Function Track (FD/FS) xác định lĩnh vực chuyên môn bạn đang đi sâu. Hai chiều này cho bạn biết mình đang đi theo con đường nào trong tổ chức.</div>
+          </div>
+
+        </div>
+
+        <!-- DEPTH TRACK — riêng một khối -->
+        <span class="cc-tools-label" style="margin-top:8px;display:block;">DEPTH Track — Đo chiều sâu phát triển của bạn</span>
+
+        <div style="background:var(--gold-pale);border-radius:4px;padding:20px 24px 24px;margin-bottom:20px;border:1px solid rgba(200,151,63,0.2);">
+          <p style="font-size:14px;font-weight:300;color:var(--text);line-height:1.8;margin-bottom:20px;">DEPTH Track là hệ thống đo <strong>hai chiều phát triển cốt lõi</strong> của mỗi CBNV — hành vi và năng lực chuyên môn. Đây là nền tảng để tổ chức hiểu bạn đang ở đâu và phân công công việc phù hợp với bạn.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+
+            <!-- BMI -->
+            <div style="background:#fff;border-radius:4px;overflow:hidden;border:1px solid rgba(200,151,63,0.25);">
+              <div style="background:var(--ink);padding:14px 20px;">
+                <div style="font-size:9px;font-weight:800;color:rgba(255,255,255,0.6);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">Chiều 1 · Đo hành vi</div>
+                <div style="font-size:22px;font-weight:900;color:var(--gold);letter-spacing:1px;line-height:1;">BMI</div>
+                <div style="font-size:12px;font-weight:600;color:rgba(255,255,255,0.75);margin-top:5px;">Business Maturity Indicators</div>
+                <div style="font-size:11px;font-weight:400;color:rgba(255,255,255,0.45);margin-top:2px;">Chỉ số trưởng thành hành vi</div>
+              </div>
+              <div style="padding:18px 20px;">
+                <div style="font-size:13px;font-weight:600;color:var(--amber);margin-bottom:8px;">Đo nền nếp — thói quen hành vi hằng ngày</div>
+                <div style="font-size:13px;font-weight:300;color:var(--text);line-height:1.75;margin-bottom:14px;">BMI không đo bạn <em>biết gì</em> hay <em>muốn gì</em> — mà đo những gì bạn <strong>thực sự làm</strong> mỗi ngày. Hai nguồn đo chính:</div>
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                  <div style="background:var(--gold-pale);padding:10px 14px;border-radius:3px;">
+                    <div style="font-size:11px;font-weight:800;color:var(--amber);margin-bottom:3px;">PoA — Pattern of Action · Khuôn mẫu hành động</div>
+                    <div style="font-size:12px;font-weight:300;color:var(--text);line-height:1.65;">Những hành động bạn lặp lại một cách nhất quán — phản ánh thói quen và nền nếp làm việc thực tế của bạn, không phải những gì bạn nói sẽ làm.</div>
+                  </div>
+                  <div style="background:var(--gold-pale);padding:10px 14px;border-radius:3px;">
+                    <div style="font-size:11px;font-weight:800;color:var(--amber);margin-bottom:3px;">EB — Expected Behavior · Hành vi kỳ vọng</div>
+                    <div style="font-size:12px;font-weight:300;color:var(--text);line-height:1.65;">Mức độ hành vi của bạn so với chuẩn kỳ vọng của vị trí — được quan sát và đối chiếu bởi những người làm việc cùng bạn.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ICM -->
+            <div style="background:#fff;border-radius:4px;overflow:hidden;border:1px solid rgba(200,151,63,0.2);">
+              <div style="background:var(--ink-soft);padding:14px 20px;">
+                <div style="font-size:9px;font-weight:800;color:rgba(255,255,255,0.5);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">Chiều 2 · Đo năng lực</div>
+                <div style="font-size:22px;font-weight:900;color:#fff;letter-spacing:1px;line-height:1;">ICM</div>
+                <div style="font-size:12px;font-weight:600;color:rgba(255,255,255,0.65);margin-top:5px;">Individual Competence Maturity</div>
+                <div style="font-size:11px;font-weight:400;color:rgba(255,255,255,0.4);margin-top:2px;">Chỉ số trưởng thành năng lực</div>
+              </div>
+              <div style="padding:18px 20px;">
+                <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:8px;">Đo năng lực — bản đồ kỹ năng chuyên môn</div>
+                <div style="font-size:13px;font-weight:300;color:var(--text);line-height:1.75;margin-bottom:14px;">ICM phác thảo toàn bộ năng lực chuyên môn bạn đang có — theo chiều sâu và chiều rộng. Hai chiều đo chính:</div>
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                  <div style="background:var(--cream);padding:10px 14px;border-radius:3px;">
+                    <div style="font-size:11px;font-weight:800;color:var(--ink);margin-bottom:3px;">SC — Skill Competency · Năng lực kỹ năng (chiều sâu)</div>
+                    <div style="font-size:12px;font-weight:300;color:var(--text);line-height:1.65;">Đo lường kỹ năng thực thi đơn lẻ của bạn — bao gồm <strong>Common Skills</strong> (Digital, Behavior, Leadership) và <strong>Technical Skills</strong> chuyên ngành. Bạn giỏi đến đâu trong từng kỹ năng cụ thể.</div>
+                  </div>
+                  <div style="background:var(--cream);padding:10px 14px;border-radius:3px;">
+                    <div style="font-size:11px;font-weight:800;color:var(--ink);margin-bottom:3px;">PSC — Professional Service Competency · Năng lực đảm trách (chiều rộng)</div>
+                    <div style="font-size:12px;font-weight:300;color:var(--text);line-height:1.65;">Đo lường năng lực hoàn thành trọn vẹn một luồng nhiệm vụ theo quy trình <strong>IPO (Input → Process → Output)</strong> với chất lượng ổn định — bạn không chỉ làm được một việc, mà đảm trách được cả một chuỗi công việc từ đầu đến cuối.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- SOA -->
+        <span class="cc-tools-label" style="display:block;">SOA — Phạm vi Chịu Trách Nhiệm</span>
+        <div style="background:var(--cream);border-radius:4px;padding:20px 24px;margin-bottom:20px;border:1px solid var(--cream-mid);">
+          <div style="font-size:13px;font-weight:300;color:var(--text);line-height:1.8;margin-bottom:16px;"><strong>SOA (Sphere of Accountable)</strong> là phần công việc bạn <strong>chịu trách nhiệm hoàn toàn</strong> — bạn là người quyết định cách làm, chịu trách nhiệm về kết quả, và phối hợp với ai để hoàn thành. Không mơ hồ, không bị người khác làm thay.</div>
+          <div style="background:#fff;border-radius:3px;padding:14px 18px;border-left:3px solid var(--gold);margin-bottom:12px;">
+            <div style="font-size:12px;font-weight:700;color:var(--amber);margin-bottom:6px;">SOA được xây dựng từ nhiều OD (nhiệm vụ)</div>
+            <div style="font-size:13px;font-weight:300;color:var(--text);line-height:1.75;">Mỗi <strong>OD (Operation Dot)</strong> là một nhiệm vụ cụ thể — có đầu vào rõ, cách xử lý rõ, kết quả đầu ra rõ, do <strong>một người chịu trách nhiệm</strong>. Khi bạn tích lũy nhiều OD lại, toàn bộ tập hợp đó tạo thành SOA của bạn — phạm vi công việc bạn thực sự làm chủ trong tổ chức.</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+            <div style="background:#fff;padding:12px 14px;border-radius:3px;text-align:center;">
+              <div style="font-size:18px;margin-bottom:4px;">🎯</div>
+              <div style="font-size:11px;font-weight:700;color:var(--ink);margin-bottom:3px;">Làm chủ phần việc của mình</div>
+              <div style="font-size:11px;font-weight:300;color:var(--muted);line-height:1.6;">Bạn tự quyết định cách thực hiện trong phạm vi được giao</div>
+            </div>
+            <div style="background:#fff;padding:12px 14px;border-radius:3px;text-align:center;">
+              <div style="font-size:18px;margin-bottom:4px;">📏</div>
+              <div style="font-size:11px;font-weight:700;color:var(--ink);margin-bottom:3px;">Rõ ranh giới trách nhiệm</div>
+              <div style="font-size:11px;font-weight:300;color:var(--muted);line-height:1.6;">Không bị người khác làm thay, không bị giao thêm không tên</div>
+            </div>
+            <div style="background:#fff;padding:12px 14px;border-radius:3px;text-align:center;">
+              <div style="font-size:18px;margin-bottom:4px;">🤝</div>
+              <div style="font-size:11px;font-weight:700;color:var(--ink);margin-bottom:3px;">Biết rõ phối hợp với ai</div>
+              <div style="font-size:11px;font-weight:300;color:var(--muted);line-height:1.6;">SOA xác định ai bạn cần làm việc cùng để hoàn thành</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cc-result">
+          <span class="cc-result-icon">🧭</span>
+          <p class="cc-result-text"><strong>Khi iLEAD rõ ràng:</strong> Bạn biết mình đang phát triển theo chiều nào — hành vi qua BMI, năng lực qua ICM. Bạn biết SOA của mình là gì và không bị mơ hồ về ranh giới công việc. Và bạn có người đồng hành đúng chiều trong hành trình phát triển dài hạn.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── LA BÀN 2: dWORK ── -->
+    <div class="compass-card cc-dwork">
+      <div class="cc-head">
+        <div class="cc-num">02</div>
+        <span class="cc-compass-label">La Bàn 02 · La Bàn Công Việc</span>
+        <h3 class="cc-name">dWORK</h3>
+        <p class="cc-vn">Tôi làm gì · Phạm vi nào · Kết quả gì?</p>
+        <p class="cc-question">"Công việc của tôi tạo ra giá trị gì thực sự — và tôi đang được ghi nhận theo chiều nào?"</p>
+      </div>
+      <div class="cc-body">
+        <div class="cc-why">
+          <span class="cc-why-label">Tại sao dWORK quan trọng với bạn</span>
+          <p class="cc-why-text">Nhiều người làm việc chăm chỉ suốt nhiều năm mà không biết mình đang tạo ra giá trị gì — task xong rồi lại task mới, không thấy mình trong bức tranh lớn hơn. dWORK thay đổi điều đó: mỗi công việc bạn làm đều có vị trí rõ ràng trong chuỗi giá trị, và bạn có thể chủ động tạo ra cơ hội lớn hơn thay vì chờ được trao.</p>
+        </div>
+
+        <!-- FC ARCHITECTURE -->
+        <span class="cc-tools-label">Luồng 1 — FC · Functional Chain · Công việc vận hành hằng ngày (BAU)</span>
+
+        <!-- FC visual hierarchy -->
+        <div style="background:var(--teal-pale);border-radius:4px;padding:24px 24px 20px;margin-bottom:20px;border:1px solid rgba(30,123,123,0.15);">
+          <p style="font-size:13.5px;font-weight:300;color:var(--text);line-height:1.8;margin-bottom:16px;"><strong>FC là luồng công việc vận hành hằng ngày (BAU — Business As Usual)</strong> — những việc bạn thực hiện lặp đi lặp lại để tổ chức vận hành thông suốt. Ai được giao vào FC nào, và phạm vi rộng hẹp ra sao, được quyết định dựa trên <strong>BMI và ICM</strong> của bạn — hai chỉ số đó xác định Span (phạm vi chịu trách nhiệm) và từ đó định hình SOA trong FC.</p>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap;">
+            <div style="background:var(--teal);color:#fff;padding:6px 14px;border-radius:3px;font-size:11px;font-weight:800;letter-spacing:1px;">OD</div>
+            <div style="color:var(--teal);font-size:18px;font-weight:300;">→</div>
+            <div style="background:rgba(30,123,123,0.15);color:var(--teal);padding:6px 14px;border-radius:3px;font-size:11px;font-weight:800;letter-spacing:1px;border:1px solid var(--teal);">OM</div>
+            <div style="color:var(--teal);font-size:18px;font-weight:300;">→</div>
+            <div style="background:rgba(30,123,123,0.08);color:var(--teal);padding:6px 14px;border-radius:3px;font-size:11px;font-weight:800;letter-spacing:1px;border:1px solid rgba(30,123,123,0.3);">FC</div>
+            <span style="margin-left:8px;font-size:11px;color:var(--teal);font-weight:600;">· TAC · KPI → Business Bonus</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+            <div style="background:#fff;padding:14px 16px;border-radius:3px;">
+              <div style="font-size:13px;font-weight:800;color:var(--teal);margin-bottom:2px;">OD</div>
+              <div style="font-size:10px;font-weight:700;color:var(--teal);opacity:.8;margin-bottom:2px;">Operation Dot</div>
+              <div style="font-size:10px;font-weight:600;color:var(--muted);margin-bottom:8px;font-style:italic;">Điểm vận hành</div>
+              <div style="font-size:12px;font-weight:300;color:var(--text);line-height:1.65;">Đơn vị công việc nhỏ nhất. Mỗi OD có: Đầu vào rõ → Cách xử lý rõ → Kết quả đầu ra rõ. <strong>1 người · 1 trách nhiệm · đo được.</strong> Tích lũy nhiều OD tạo thành SOA của bạn.</div>
+            </div>
+            <div style="background:#fff;padding:14px 16px;border-radius:3px;">
+              <div style="font-size:13px;font-weight:800;color:var(--teal);margin-bottom:2px;">OM</div>
+              <div style="font-size:10px;font-weight:700;color:var(--teal);opacity:.8;margin-bottom:2px;">Operation Module</div>
+              <div style="font-size:10px;font-weight:600;color:var(--muted);margin-bottom:8px;font-style:italic;">Mô-đun vận hành</div>
+              <div style="font-size:12px;font-weight:300;color:var(--text);line-height:1.65;">Nhiều OD phối hợp cùng nhau tạo ra một khối vận hành hoàn chỉnh. Trong OM, ai làm gì được phân công rõ ràng — không chồng chéo, không bị bỏ sót.</div>
+            </div>
+            <div style="background:#fff;padding:14px 16px;border-radius:3px;">
+              <div style="font-size:13px;font-weight:800;color:var(--teal);margin-bottom:2px;">FC</div>
+              <div style="font-size:10px;font-weight:700;color:var(--teal);opacity:.8;margin-bottom:2px;">Functional Chain</div>
+              <div style="font-size:10px;font-weight:600;color:var(--muted);margin-bottom:8px;font-style:italic;">Chuỗi chức năng</div>
+              <div style="font-size:12px;font-weight:300;color:var(--text);line-height:1.65;">Chuỗi vận hành đầu cuối từ nhiều OM, tạo ra giá trị thực sự đến khách hàng. FC vận hành theo <strong>TAC</strong>, kết quả đo bằng <strong>KPI</strong>.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- OC ARCHITECTURE -->
+        <span class="cc-tools-label" style="margin-top:12px;display:block;">Luồng 2 — OC · Opportunity Chain · Cơ hội bạn chủ động tạo ra</span>
+
+        <div style="background:var(--teal-pale);border-radius:4px;padding:24px;margin-bottom:20px;border:1px solid rgba(30,123,123,0.15);">
+          <p style="font-size:14px;font-weight:300;color:var(--text);line-height:1.8;margin-bottom:8px;">Bên cạnh FC, bạn có thể <strong>chủ động đề xuất một dự án</strong> khi nhận ra cơ hội hoặc vấn đề xung quanh mình. Không ai giao — bạn tự nhìn thấy và tự tạo ra. Kết quả OC đo bằng <strong>OKR</strong> → <strong>Contribution Bonus</strong>.</p>
+          <p style="font-size:13px;font-weight:400;color:var(--teal);margin-bottom:20px;font-style:italic;">Thành viên OC được tuyển chọn dựa trên BMI và ICM — đảm bảo đúng người, đúng năng lực cho từng dự án.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+
+            <div style="background:#fff;border-radius:3px;overflow:hidden;">
+              <div style="background:var(--teal);padding:12px 16px;">
+                <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.7);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px;">OC Fix / Build</div>
+                <div style="font-size:13px;font-weight:700;color:#fff;">Bạn tự đề xuất</div>
+              </div>
+              <div style="padding:16px;">
+                <div style="font-size:13px;font-weight:300;color:var(--text);line-height:1.75;">Bạn thấy điều gì đó trong công việc hằng ngày có thể làm tốt hơn — một vấn đề cần giải quyết (Fix) hoặc một năng lực cần xây dựng thêm cho nhóm (Build). Bạn đề xuất, bạn dẫn dắt.</div>
+              </div>
+            </div>
+
+            <div style="background:#fff;border-radius:3px;overflow:hidden;">
+              <div style="background:rgba(30,123,123,0.72);padding:12px 16px;">
+                <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.7);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px;">OC Transform</div>
+                <div style="font-size:13px;font-weight:700;color:#fff;">Ban lãnh đạo khởi động</div>
+              </div>
+              <div style="padding:16px;">
+                <div style="font-size:13px;font-weight:300;color:var(--text);line-height:1.75;">Khi tổ chức cần thay đổi lớn ở tầng hệ thống, ban lãnh đạo mở dự án Transform. Bạn có thể được chọn tham gia — hoặc chủ động đăng ký — để đóng góp vào sự thay đổi đó.</div>
+              </div>
+            </div>
+
+            <div style="background:#fff;border-radius:3px;overflow:hidden;">
+              <div style="background:rgba(30,123,123,0.42);padding:12px 16px;">
+                <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.8);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px;">OC Innovation</div>
+                <div style="font-size:13px;font-weight:700;color:#fff;">Khám phá điều hoàn toàn mới</div>
+              </div>
+              <div style="padding:16px;">
+                <div style="font-size:13px;font-weight:300;color:var(--text);line-height:1.75;">Khi tổ chức muốn thử nghiệm một hướng kinh doanh chưa có, đây là không gian để những người dám nghĩ khác tham gia khám phá — dù kết quả là tiếp tục hay dừng lại, insight đều có giá trị.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="cc-result">
+          <span class="cc-result-icon">⚡</span>
+          <p class="cc-result-text"><strong>Khi dWORK rõ ràng:</strong> Bạn biết mình đang tạo ra giá trị gì mỗi ngày trong FC — và khi thấy cơ hội, bạn biết mình có thể đề xuất OC thay vì chờ được giao. Công việc không còn là task rời rạc, mà là hành trình bạn chủ động kiến tạo.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── LA BÀN 3: dLINK ── -->
+    <div class="compass-card cc-dlink">
+      <div class="cc-head">
+        <div class="cc-num">03</div>
+        <span class="cc-compass-label">La Bàn 03 · La Bàn Đồng Hành</span>
+        <h3 class="cc-name">dLINK</h3>
+        <p class="cc-vn">Ai đang đi cùng tôi?</p>
+        <p class="cc-question">"Tôi có đang thực sự được đồng hành — hay đang đi một mình trong tổ chức này?"</p>
+      </div>
+      <div class="cc-body">
+        <div class="cc-why">
+          <span class="cc-why-label">Tại sao dLINK quan trọng với bạn</span>
+          <p class="cc-why-text">Một trong những điều cô đơn nhất trong cuộc đời đi làm là cảm giác không ai thực sự hiểu bạn đang gặp khó khăn gì. Bạn cố gắng — nhưng không ai nhìn thấy. Bạn muốn hỏi — nhưng không biết hỏi ai. dLINK đảm bảo điều đó không xảy ra: bạn luôn có một mạng lưới đồng hành thực sự, rõ ràng, và đúng chiều.</p>
+        </div>
+
+        <span class="cc-tools-label">Công cụ & Cơ chế</span>
+        <div class="tools-grid cc-tools">
+          <div class="tool-item">
+            <div class="tool-name">SM — Servant Manager</div>
+            <div class="tool-desc">Người có nhiệm vụ chăm lo sự phát triển dài hạn của bạn trong hành trình iLEAD — DEPTH, BMI, IDP. SM không đánh giá KPI; SM đặt câu hỏi và đi cùng bạn trong hành trình phát triển.</div>
+          </div>
+          <div class="tool-item">
+            <div class="tool-name">Buddy — Người bạn đồng hành gần nhất</div>
+            <div class="tool-desc">Cùng cấp bậc, hiểu bạn đang trải qua gì trong những ngày bình thường khó khăn. Không phải người huấn luyện, không phải người đánh giá — chỉ là hiện diện thực sự cùng bạn. Đôi khi điều đó là đủ.</div>
+          </div>
+          <div class="tool-item">
+            <div class="tool-name">EPIC Partner — iLEAD Care (IC)</div>
+            <div class="tool-desc">iLEAD Care là người được gắn vào nhóm/đơn vị để theo dõi sức khỏe phát triển của từng thành viên — đọc tín hiệu sớm khi ai đó đang gặp khó khăn, và là cầu nối giữa CBNV với hệ thống hỗ trợ của tổ chức.</div>
+          </div>
+          <div class="tool-item">
+            <div class="tool-name">SOS — Sphere of Support</div>
+            <div class="tool-desc">Toàn bộ mạng lưới đang chăm lo cho sự phát triển của bạn: SM (hành vi/DEPTH) · TM (chuyên môn/ICM) · Mentor (định hướng dài hạn) · Buddy (hiện diện hằng ngày). SOS đủ mạnh = bạn không thiếu người đồng hành.</div>
+          </div>
+          <div class="tool-item">
+            <div class="tool-name">SOC — Sphere of Collaboration & Control</div>
+            <div class="tool-desc"><strong>Ai bạn đang phối hợp</strong> trong chuỗi công việc: người bàn giao việc cho bạn (đầu vào — upstream) và người bạn bàn giao kết quả tới (đầu ra — downstream), cùng các nhóm chức năng khác trong dự án OC. SOC rõ ràng → không bị tắc nghẽn vì không biết liên hệ với ai.</div>
+          </div>
+          <div class="tool-item">
+            <div class="tool-name">SOI — Sphere of Influence</div>
+            <div class="tool-desc"><strong>Ai đang chịu ảnh hưởng từ kết quả công việc của bạn</strong> — khách hàng cuối, các bộ phận nhận đầu ra của bạn, tổ chức rộng hơn. SOC là về <em>cộng tác ngang</em> trong chuỗi; SOI là về <em>tác động dọc</em> ra ngoài. Hai chiều không trùng nhau — cùng nhau cho thấy bức tranh đầy đủ về kết nối của bạn.</div>
+          </div>
+        </div>
+
+        <div class="cc-result">
+          <span class="cc-result-icon">🤝</span>
+          <p class="cc-result-text"><strong>Khi dLINK healthy:</strong> Bạn biết chính xác ai đang care cho sự phát triển của mình và theo chiều nào. Bạn biết mình đang kết nối với ai trong chuỗi công việc. Bạn thấy rõ impact của mình lên tổ chức và khách hàng. Sự nghiệp không còn là hành trình đơn độc.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── LA BÀN 4: dAccount ── -->
+    <div class="compass-card cc-daccount">
+      <div class="cc-head">
+        <div class="cc-num">04</div>
+        <span class="cc-compass-label">La Bàn 04 · La Bàn Giá Trị</span>
+        <h3 class="cc-name">dAccount</h3>
+        <p class="cc-vn">Giá trị của tôi trong tổ chức là gì?</p>
+        <p class="cc-question">"Tôi được nhìn nhận theo chiều nào — và mình cần làm gì để phát triển tiếp?"</p>
+      </div>
+      <div class="cc-body">
+        <div class="cc-why">
+          <span class="cc-why-label">Tại sao dAccount quan trọng với bạn</span>
+          <p class="cc-why-text">Trong nhiều tổ chức, "giá trị" được đo bằng một con số duy nhất — thường là KPI, thường là ngắn hạn, thường là không công bằng. dAccount thay đổi điều đó: giá trị của bạn được đo theo 3 chiều độc lập, rõ ràng, và bạn tự navigate được — không cần chờ ai phán xét.</p>
+        </div>
+
+        <span class="cc-tools-label">Công cụ & Cơ chế</span>
+        <div class="tools-grid cc-tools">
+          <div class="tool-item">
+            <div class="tool-name">P1 · Person — Bạn là ai</div>
+            <div class="tool-desc">Đo bằng BMI — hành vi trưởng thành bạn thể hiện mỗi ngày. P1 phản ánh bạn đang phát triển bền vững như thế nào với tư cách là một con người trong tổ chức, và là cơ sở xác định mức lương phù hợp với bạn.</div>
+          </div>
+          <div class="tool-item">
+            <div class="tool-name">P2 · Position — Bạn đang làm gì</div>
+            <div class="tool-desc">Đo bằng Span và phạm vi SOA bạn đang đảm nhận. P2 phản ánh mức độ phức tạp và quy mô công việc bạn đang chịu trách nhiệm. Span mở rộng khi cả BMI lẫn ICM đều đủ — cả hai điều kiện cùng lúc, không cái nào thay thế cái kia.</div>
+          </div>
+          <div class="tool-item">
+            <div class="tool-name">P3 · Performance — Bạn tạo ra được gì</div>
+            <div class="tool-desc">Đo bằng kết quả KPI trong FC và OKR trong OC. P3 là cơ sở xác định Bonus của bạn — thưởng từ kết quả vận hành hằng ngày (FC) và thưởng từ đóng góp qua các dự án (OC). Kết quả tốt được ghi nhận xứng đáng.</div>
+          </div>
+          <div class="tool-item">
+            <div class="tool-name">Salary Band — Mức lương theo chiều phát triển</div>
+            <div class="tool-desc">Band lương của bạn thay đổi dựa trên sự phát triển BMI theo thời gian — không phải thâm niên, không phải KPI tháng này. Đây là cách tổ chức ghi nhận bạn đang trở nên tốt hơn một cách bền vững.</div>
+          </div>
+          <div class="tool-item">
+            <div class="tool-name">Business Bonus — Thưởng từ FC</div>
+            <div class="tool-desc">Phần thưởng cho kết quả thực tế bạn tạo ra hằng ngày trong công việc vận hành FC. Kết quả KPI càng tốt, phần thưởng càng cao — ghi nhận trực tiếp sự đóng góp hằng ngày của bạn.</div>
+          </div>
+          <div class="tool-item">
+            <div class="tool-name">Contribution Bonus — Thưởng từ OC</div>
+            <div class="tool-desc">Phần thưởng dành cho những ai chủ động tạo ra sự thay đổi qua các dự án OC — vượt ra ngoài công việc vận hành thường ngày. Đây là cách tổ chức trân trọng tinh thần chủ động và đóng góp sáng tạo.</div>
+          </div>
+        </div>
+
+        <div class="cc-result">
+          <span class="cc-result-icon">💎</span>
+          <p class="cc-result-text"><strong>Khi dAccount rõ ràng:</strong> Bạn hiểu con đường để lương tăng (P1 — phát triển hành vi qua iLEAD), phạm vi công việc mở rộng (P2 — nâng BMI và ICM), và Bonus tăng (P3 — deliver tốt trong FC và đóng góp qua OC). Không còn mơ hồ — bạn tự điều hướng hành trình giá trị của mình.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════ ECOSYSTEM ══════════════════════ -->
+<section class="ecosystem">
+  <div class="wrap">
+    <div class="eco-card">
+      <h2 class="eco-title serif">4 La Bàn — Một Vòng Tròn Nuôi Dưỡng</h2>
+      <p class="eco-sub">Bốn la bàn không hoạt động độc lập. Chúng kết nối và nuôi dưỡng nhau trong một vòng tròn liên tục — mỗi la bàn là điều kiện để la bàn tiếp theo phát huy tác dụng.</p>
+
+      <!-- CIRCULAR DIAGRAM -->
+      <div style="display:flex;justify-content:center;margin:40px 0 32px;">
+        <svg viewBox="0 0 520 520" width="100%" style="max-width:480px;" xmlns="http://www.w3.org/2000/svg" font-family="Mulish,sans-serif">
+
+          <!-- Outer ring -->
+          <circle cx="260" cy="260" r="230" fill="none" stroke="#EFEFDF" stroke-width="2"/>
+          <!-- Inner ring -->
+          <circle cx="260" cy="260" r="90" fill="#0D0D14"/>
+          <!-- Center text -->
+          <text x="260" y="250" text-anchor="middle" font-size="13" font-weight="800" fill="#C8973F" letter-spacing="1">EPIC</text>
+          <text x="260" y="268" text-anchor="middle" font-size="11" font-weight="400" fill="rgba(255,255,255,0.55)">Compass</text>
+          <text x="260" y="284" text-anchor="middle" font-size="10" font-weight="400" fill="rgba(255,255,255,0.35)">La Bàn Sự Nghiệp</text>
+
+          <!-- Curved arrows between nodes (arcs along the ring r=160) -->
+          <!-- iLEAD → dWORK (top-right arc) -->
+          <path d="M 330 108 A 160 160 0 0 1 412 330" fill="none" stroke="#C8973F" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arr-gold)"/>
+          <!-- dWORK → dLINK (right-bottom arc) -->
+          <path d="M 412 340 A 160 160 0 0 1 190 412" fill="none" stroke="#1E7B7B" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arr-teal)"/>
+          <!-- dLINK → dAccount (bottom-left arc) -->
+          <path d="M 180 412 A 160 160 0 0 1 108 190" fill="none" stroke="#C75A22" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arr-orange)"/>
+          <!-- dAccount → iLEAD (left-top arc) -->
+          <path d="M 108 180 A 160 160 0 0 1 320 105" fill="none" stroke="#9B6B10" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arr-amber)"/>
+
+          <!-- Arrow markers -->
+          <defs>
+            <marker id="arr-gold" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+              <path d="M0,1 L6,4 L0,7 Z" fill="#C8973F"/>
+            </marker>
+            <marker id="arr-teal" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+              <path d="M0,1 L6,4 L0,7 Z" fill="#1E7B7B"/>
+            </marker>
+            <marker id="arr-orange" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+              <path d="M0,1 L6,4 L0,7 Z" fill="#C75A22"/>
+            </marker>
+            <marker id="arr-amber" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+              <path d="M0,1 L6,4 L0,7 Z" fill="#9B6B10"/>
+            </marker>
+          </defs>
+
+          <!-- NODE 1: iLEAD — TOP -->
+          <circle cx="260" cy="70" r="58" fill="#1C1C2E" stroke="#C8973F" stroke-width="2.5"/>
+          <text x="260" y="62" text-anchor="middle" font-size="17" font-weight="900" fill="#C8973F">iLEAD</text>
+          <text x="260" y="77" text-anchor="middle" font-size="9.5" font-weight="600" fill="rgba(255,255,255,0.6)" letter-spacing="0.5">La Bàn Năng Lực</text>
+          <text x="260" y="92" text-anchor="middle" font-size="9" font-weight="300" fill="rgba(255,255,255,0.45)" font-style="italic">Tôi đang trở thành ai?</text>
+
+          <!-- NODE 2: dWORK — RIGHT -->
+          <circle cx="420" cy="260" r="58" fill="#1E7B7B" stroke="#3AABAB" stroke-width="2"/>
+          <text x="420" y="252" text-anchor="middle" font-size="17" font-weight="900" fill="#fff">dWORK</text>
+          <text x="420" y="267" text-anchor="middle" font-size="9.5" font-weight="600" fill="rgba(255,255,255,0.7)" letter-spacing="0.5">La Bàn Công Việc</text>
+          <text x="420" y="282" text-anchor="middle" font-size="9" font-weight="300" fill="rgba(255,255,255,0.55)" font-style="italic">Tôi làm gì · kết quả gì?</text>
+
+          <!-- NODE 3: dLINK — BOTTOM -->
+          <circle cx="260" cy="450" r="58" fill="#C75A22" stroke="#E8834A" stroke-width="2"/>
+          <text x="260" y="442" text-anchor="middle" font-size="17" font-weight="900" fill="#fff">dLINK</text>
+          <text x="260" y="457" text-anchor="middle" font-size="9.5" font-weight="600" fill="rgba(255,255,255,0.7)" letter-spacing="0.5">La Bàn Đồng Hành</text>
+          <text x="260" y="472" text-anchor="middle" font-size="9" font-weight="300" fill="rgba(255,255,255,0.55)" font-style="italic">Ai đang đi cùng tôi?</text>
+
+          <!-- NODE 4: dAccount — LEFT -->
+          <circle cx="100" cy="260" r="58" fill="#9B6B10" stroke="#C9A84C" stroke-width="2"/>
+          <text x="100" y="250" text-anchor="middle" font-size="15" font-weight="900" fill="#fff">dAccount</text>
+          <text x="100" y="265" text-anchor="middle" font-size="9.5" font-weight="600" fill="rgba(255,255,255,0.7)" letter-spacing="0.5">La Bàn Giá Trị</text>
+          <text x="100" y="280" text-anchor="middle" font-size="9" font-weight="300" fill="rgba(255,255,255,0.55)" font-style="italic">Giá trị của tôi là gì?</text>
+
+          <!-- Arc labels -->
+          <path id="arc-top-right" d="M 318 108 A 165 165 0 0 1 407 318" fill="none"/>
+          <text font-size="9.5" fill="#C8973F" font-weight="600">
+            <textPath href="#arc-top-right" startOffset="15%">xây nền tảng →</textPath>
+          </text>
+
+          <path id="arc-right-bot" d="M 412 332 A 165 165 0 0 1 208 415" fill="none"/>
+          <text font-size="9.5" fill="#1E7B7B" font-weight="600">
+            <textPath href="#arc-right-bot" startOffset="15%">tạo kết quả thực →</textPath>
+          </text>
+
+          <path id="arc-bot-left" d="M 196 415 A 165 165 0 0 1 108 208" fill="none"/>
+          <text font-size="9.5" fill="#C75A22" font-weight="600">
+            <textPath href="#arc-bot-left" startOffset="10%">nuôi dưỡng điều kiện →</textPath>
+          </text>
+
+          <path id="arc-left-top" d="M 112 196 A 165 165 0 0 1 308 112" fill="none"/>
+          <text font-size="9.5" fill="#9B6B10" font-weight="600">
+            <textPath href="#arc-left-top" startOffset="15%">điều hướng & phát triển →</textPath>
+          </text>
+
+        </svg>
+      </div>
+
+      <p class="eco-note">
+        <strong>iLEAD</strong> xây nền tảng con người (BMI · ICM · SOA) → <strong>dWORK</strong> chuyển năng lực đó thành kết quả thực trong FC và OC → <strong>dLINK</strong> nuôi dưỡng điều kiện để cả hai lớn lên bền vững → <strong>dAccount</strong> phản chiếu toàn bộ giá trị và giúp bạn tự điều hướng bước tiếp theo.<br><br>
+        Muốn lương tăng — phát triển <em>BMI trong iLEAD</em>. Muốn phạm vi công việc mở rộng — nâng <em>ICM qua OC</em>. Muốn Bonus cao hơn — deliver tốt trong <em>FC hằng ngày</em>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ CLOSING ══════════════════════ -->
+<section class="closing">
+  <div class="wrap">
+    <span class="eyebrow" style="text-align:center;display:block;">Cam kết của IPA Group</span>
+    <h2 class="closing-headline">4 La Bàn không phải công cụ của HR —<br><em>đây là công cụ của chính bạn.</em></h2>
+    <p class="closing-body">
+      Chúng tôi xây dựng EPIC Compass với một cam kết: mỗi CBNV tại IPA Group sẽ luôn biết mình đang ở đâu, đang lớn lên theo chiều nào, và cần làm gì tiếp theo — không cần chờ ai nói. Khi bạn có 4 la bàn trong tay, sự nghiệp không còn là hành trình mờ mịt. Nó trở thành hành trình bạn tự chọn và tự dẫn dắt.
+    </p>
+
+    <!-- CTA BLOCK -->
+    <div style="
+      display:grid;grid-template-columns:1fr 1fr;gap:16px;
+      max-width:680px;margin:0 auto 52px;text-align:left;
+    ">
+      <div style="
+        background:#fff;border:1px solid var(--cream-mid);
+        border-radius:4px;padding:28px 28px 24px;
+        border-top:3px solid var(--gold);
+        transition:box-shadow .2s;
+      ">
+        <div style="font-size:22px;margin-bottom:12px;">🧭</div>
+        <div style="font-size:14px;font-weight:800;color:var(--ink);margin-bottom:8px;">Bắt đầu với iLEAD</div>
+        <div style="font-size:13px;font-weight:300;color:var(--muted);line-height:1.75;margin-bottom:16px;">Gặp Servant Manager của bạn — chia sẻ về hành trình phát triển bạn đang muốn hướng tới và cùng nhau đọc BMI hiện tại.</div>
+        <div style="font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--gold);">→ Gặp Servant Manager</div>
+      </div>
+
+      <div style="
+        background:#fff;border:1px solid var(--cream-mid);
+        border-radius:4px;padding:28px 28px 24px;
+        border-top:3px solid var(--teal);
+      ">
+        <div style="font-size:22px;margin-bottom:12px;">⚡</div>
+        <div style="font-size:14px;font-weight:800;color:var(--ink);margin-bottom:8px;">Hiểu rõ dWORK của mình</div>
+        <div style="font-size:13px;font-weight:300;color:var(--muted);line-height:1.75;margin-bottom:16px;">Xem lại SOA của bạn trong FC — bạn đang own cái gì, deliver cho ai, và KPI nào đang đo kết quả của bạn.</div>
+        <div style="font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--teal);">→ Xem lại SOA & KPI</div>
+      </div>
+
+      <div style="
+        background:#fff;border:1px solid var(--cream-mid);
+        border-radius:4px;padding:28px 28px 24px;
+        border-top:3px solid var(--orange);
+      ">
+        <div style="font-size:22px;margin-bottom:12px;">🤝</div>
+        <div style="font-size:14px;font-weight:800;color:var(--ink);margin-bottom:8px;">Kết nối mạng lưới dLINK</div>
+        <div style="font-size:13px;font-weight:300;color:var(--muted);line-height:1.75;margin-bottom:16px;">Biết rõ SOS của bạn — ai đang là SM, Buddy, TM của mình? Nếu chưa có đủ, đây là lúc để kết nối.</div>
+        <div style="font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--orange);">→ Xác nhận mạng lưới SOS</div>
+      </div>
+
+      <div style="
+        background:#fff;border:1px solid var(--cream-mid);
+        border-radius:4px;padding:28px 28px 24px;
+        border-top:3px solid var(--amber);
+      ">
+        <div style="font-size:22px;margin-bottom:12px;">💎</div>
+        <div style="font-size:14px;font-weight:800;color:var(--ink);margin-bottom:8px;">Đọc dAccount của mình</div>
+        <div style="font-size:13px;font-weight:300;color:var(--muted);line-height:1.75;margin-bottom:16px;">Xem P1/P2/P3 hiện tại — bạn đang ở Band nào, Span bao nhiêu, và con đường để phát triển tiếp theo là gì.</div>
+        <div style="font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--amber);">→ Xem P1 · P2 · P3 của bạn</div>
+      </div>
+    </div>
+    <!-- END CTA -->
+
+    <div class="closing-stamp">
+      <div class="stamp-dot"></div>
+      <div>
+        <div class="stamp-name serif">EPIC Compass</div>
+        <div class="stamp-sub">IPA Group · La Bàn Sự Nghiệp · 4 La Bàn Vận Hành Hằng Ngày</div>
+      </div>
+      <div class="stamp-dot"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ FOOTER ══════════════════════ -->
+<footer>
+  <div class="footer-logo">IPA GROUP</div>
+  <p class="footer-sub">EPIC Compass · La Bàn Sự Nghiệp · Tài liệu nội bộ · 2026</p>
+</footer>
+
+</body>
+</html>
